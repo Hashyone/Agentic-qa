@@ -1,0 +1,43 @@
+{
+  "pilot_id": "api-task-creation-feasibility-0.2",
+  "dataset_version": "0.2.0",
+  "oracle_version": "task-create-contract-v1",
+  "target_id": "local_task_api",
+  "case_id": "API-TASK-CREATE-001",
+  "domain": "software",
+  "difficulty": "easy",
+  "task_request": "Generate a small executable test suite for task creation using the approved contract.",
+  "contract": [
+    "A nonblank task input is accepted with HTTP 201 and task status received.",
+    "GET /v1/tasks/{task_id} returns the exact original input as source_request.",
+    "An input containing only whitespace is rejected with HTTP 422 and detail input.text must not be blank."
+  ],
+  "expected_behaviors": [
+    {
+      "oracle_requirement_id": "ORACLE-001",
+      "input_text": "Pilot task",
+      "expected_status_code": 201,
+      "expected_task_status": "received",
+      "expected_source_request": "Pilot task"
+    },
+    {
+      "oracle_requirement_id": "ORACLE-002",
+      "input_text": "   ",
+      "expected_status_code": 422,
+      "expected_error_detail": "input.text must not be blank"
+    }
+  ],
+  "conditions": {
+    "baseline_a_prompt": "Write a small executable test suite for task creation. Contract: nonblank input returns HTTP 201 and task status received, retrieval returns the exact original input as source_request, and whitespace-only input returns HTTP 422 with detail input.text must not be blank. Return only JSON with a cases array. Each case must have case_id, requirement_ids, scenario, operation, input_text, expected_status_code, expected_task_status, expected_source_request, and expected_error_detail. Use only operation create_task. Include one case per behavior and no other cases.",
+    "baseline_b_prompt": "Produce only a JSON object matching this exact shape: {\"cases\":[{\"case_id\":\"string\",\"requirement_ids\":[\"ORACLE-001 or ORACLE-002\"],\"scenario\":\"string\",\"operation\":\"create_task\",\"input_text\":\"string\",\"expected_status_code\":201 or 422,\"expected_task_status\":\"received\" or null,\"expected_source_request\":\"string\" or null,\"expected_error_detail\":\"input.text must not be blank\" or null}]}. Generate exactly two cases. ORACLE-001: input Pilot task; expect HTTP 201, task status received, and retrieved source_request exactly Pilot task. ORACLE-002: input three spaces; expect HTTP 422 and detail input.text must not be blank. Do not invent cases, statuses, paths, or behaviors. No code or Markdown fences.",
+    "platform_request": "Generate exactly two executable API test cases for POST /v1/tasks, one for each behavior in the contract below. Return ONLY one raw JSON object, not Markdown, not a code fence, with exactly one top-level key named cases. Each case object must contain exactly: case_id, requirement_ids, scenario, operation, input_text, expected_status_code, expected_task_status, expected_source_request, expected_error_detail. No other keys. Use only operation create_task. Behavior 1: the exact input text Pilot task returns HTTP 201, task status received, and GET of the created task returns source_request exactly Pilot task; expected_source_request must therefore be Pilot task. Behavior 2: the exact input text of three spaces returns HTTP 422 and detail input.text must not be blank; expected_task_status and expected_source_request must be null. Link each case only to its matching requirement ID from the approved Intent Record. Do not add a separate retrieval case, other examples, or extra tests. Do not write executable code or include paths, URLs, scripts, or tool instructions."
+  },
+  "measurement_policy": {
+    "same_provider_model_and_api_target": true,
+    "time_metric": "wall time from condition start through API-case execution",
+    "token_metric": "sum of provider-reported input and output tokens across every call; incomplete if any call omits usage",
+    "quality_metric": "all generated cases parse, satisfy contract requirement links, and pass the independent local API oracle",
+    "agent_iterations": "not measured by this one-shot feasibility pilot",
+    "human_review": "pilot outputs require human review before treating quality as accepted"
+  }
+}

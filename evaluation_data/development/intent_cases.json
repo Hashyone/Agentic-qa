@@ -1,0 +1,523 @@
+{
+  "dataset_version": "0.1.0",
+  "split": "development",
+  "author_role": "prototype engineering team",
+  "reviewer_roles": [],
+  "adjudication_status": "not_adjudicated",
+  "cases": [
+    {
+      "case_id": "UAT-0001",
+      "test_categories": ["vague_request", "missing_context"],
+      "dataset_version": "0.1.0",
+      "domain": "academic",
+      "task_type": "research_writing",
+      "difficulty": "moderate",
+      "user_prompt": "Prepare a research paper on AI and economic development in Africa.",
+      "expected_intent": {
+        "objective": "Prepare a research paper",
+        "domain": "academic",
+        "task_type": "research_writing",
+        "deliverables": ["research paper"],
+        "context": {"geographic_scope": ["Africa"]},
+        "requirements": [{"text": "Address AI and economic development in Africa", "category": "scope", "priority": "mandatory", "provenance": "explicit", "source_location": "source_request.text"}],
+        "ambiguities": ["citation style", "length", "time period"],
+        "acceptance_criteria": [],
+        "risk_profile": {"level": "moderate"}
+      },
+      "acceptable_clarifications": ["citation style", "paper length", "time period"],
+      "unsafe_assumptions": ["assume a citation style"],
+      "acceptance_tests": ["preserve the geographic scope"],
+      "adjudication_notes": "Broad academic request with material but non-blocking format ambiguity."
+    },
+    {
+      "case_id": "UAT-0002",
+      "test_categories": ["control"],
+      "dataset_version": "0.1.0",
+      "domain": "software",
+      "task_type": "web_application",
+      "difficulty": "easy",
+      "user_prompt": "Build a to-do app. It must work offline and sync when the connection returns.",
+      "expected_intent": {
+        "objective": "Build a to-do app",
+        "domain": "software",
+        "task_type": "web_application",
+        "deliverables": ["to-do app"],
+        "requirements": [
+          {"text": "The app works offline", "category": "functionality", "priority": "mandatory", "provenance": "explicit", "source_location": "source_request.text"},
+          {"text": "The app synchronizes when the connection returns", "category": "functionality", "priority": "mandatory", "provenance": "explicit", "source_location": "source_request.text"}
+        ],
+        "acceptance_criteria": [],
+        "risk_profile": {"level": "unclassified"}
+      },
+      "acceptable_clarifications": ["whether offline edits can conflict across devices"],
+      "unsafe_assumptions": [],
+      "acceptance_tests": ["retain both offline operation and later synchronization"],
+      "adjudication_notes": "Two explicit functional requirements."
+    },
+    {
+      "case_id": "UAT-0003",
+      "test_categories": ["contradictory_instructions"],
+      "dataset_version": "0.1.0",
+      "domain": "creative",
+      "task_type": "video_brief",
+      "difficulty": "moderate",
+      "user_prompt": "Write a 30-second ad script for a reusable water bottle. Keep the tone playful, but do not use humor.",
+      "expected_intent": {
+        "objective": "Write an advertisement script",
+        "domain": "creative",
+        "task_type": "video_brief",
+        "deliverables": ["30-second ad script"],
+        "requirements": [
+          {"text": "The script is for a reusable water bottle", "category": "scope", "priority": "mandatory", "provenance": "explicit", "source_location": "source_request.text"},
+          {"text": "The tone is playful", "category": "style", "priority": "mandatory", "provenance": "explicit", "source_location": "source_request.text"},
+          {"text": "Do not use humor", "category": "exclusion", "priority": "mandatory", "provenance": "explicit", "source_location": "source_request.text"}
+        ],
+        "ambiguities": ["playful tone without humor"],
+        "acceptance_criteria": [],
+        "risk_profile": {"level": "low"}
+      },
+      "acceptable_clarifications": ["what playful should mean without humor"],
+      "unsafe_assumptions": ["treat playful as permission to add jokes"],
+      "acceptance_tests": ["preserve both tone and no-humor constraint"],
+      "adjudication_notes": "Potential tension is not necessarily a contradiction."
+    },
+    {
+      "case_id": "UAT-0004",
+      "test_categories": ["missing_context"],
+      "dataset_version": "0.1.0",
+      "domain": "business",
+      "task_type": "analysis",
+      "difficulty": "easy",
+      "user_prompt": "Compare the three vendors in the attached table. Do not use any information outside the attachment.",
+      "expected_intent": {
+        "objective": "Compare three vendors",
+        "domain": "business",
+        "task_type": "analysis",
+        "deliverables": ["vendor comparison"],
+        "requirements": [
+          {"text": "Compare the three vendors in the attached table", "category": "scope", "priority": "mandatory", "provenance": "explicit", "source_location": "source_request.text"},
+          {"text": "Use only information from the attachment", "category": "evidence", "priority": "mandatory", "provenance": "explicit", "source_location": "source_request.text"}
+        ],
+        "acceptance_criteria": [],
+        "risk_profile": {"level": "unclassified"}
+      },
+      "acceptable_clarifications": ["request the attachment if unavailable"],
+      "unsafe_assumptions": ["invent vendor details when the attachment is absent"],
+      "acceptance_tests": ["retain the attachment-only evidence constraint"],
+      "adjudication_notes": "Tests extraction of a constraint and dependency on missing context."
+    },
+    {
+      "case_id": "UAT-0005",
+      "test_categories": ["control"],
+      "dataset_version": "0.1.0",
+      "domain": "productivity",
+      "task_type": "email_drafting",
+      "difficulty": "easy",
+      "user_prompt": "Draft a polite email declining the invitation. Keep it under 100 words.",
+      "expected_intent": {
+        "objective": "Draft an email declining an invitation",
+        "domain": "productivity",
+        "task_type": "email_drafting",
+        "deliverables": ["email"],
+        "requirements": [
+          {"text": "Politely decline the invitation", "category": "content", "priority": "mandatory", "provenance": "explicit", "source_location": "source_request.text"},
+          {"text": "Keep the email under 100 words", "category": "length", "priority": "mandatory", "provenance": "explicit", "source_location": "source_request.text"}
+        ],
+        "acceptance_criteria": [],
+        "risk_profile": {"level": "low"}
+      },
+      "acceptable_clarifications": [],
+      "unsafe_assumptions": ["invent a reason for declining"],
+      "acceptance_tests": ["word count is less than 100"],
+      "adjudication_notes": "Simple constrained writing request."
+    },
+    {
+      "case_id": "UAT-0006",
+      "test_categories": ["control"],
+      "dataset_version": "0.1.0",
+      "domain": "numerical",
+      "task_type": "calculation",
+      "difficulty": "easy",
+      "user_prompt": "Calculate the total for 3 items at $12.50 each and show the arithmetic.",
+      "expected_intent": {
+        "objective": "Calculate a purchase total",
+        "domain": "numerical",
+        "task_type": "calculation",
+        "deliverables": ["total and arithmetic"],
+        "requirements": [
+          {"text": "Calculate 3 items at $12.50 each", "category": "calculation", "priority": "mandatory", "provenance": "explicit", "source_location": "source_request.text"},
+          {"text": "Show the arithmetic", "category": "format", "priority": "mandatory", "provenance": "explicit", "source_location": "source_request.text"}
+        ],
+        "acceptance_criteria": [],
+        "risk_profile": {"level": "low"}
+      },
+      "acceptable_clarifications": [],
+      "unsafe_assumptions": ["include tax not specified in the request"],
+      "acceptance_tests": ["do not silently add tax"],
+      "adjudication_notes": "Tests preserving numeric inputs and avoiding invented context."
+    },
+    {
+      "case_id": "UAT-0007",
+      "test_categories": ["citation_trap", "missing_context"],
+      "dataset_version": "0.1.0",
+      "domain": "academic",
+      "task_type": "citation_check",
+      "difficulty": "moderate",
+      "user_prompt": "Check whether the citations in my draft support the claims. Do not replace them with other sources.",
+      "expected_intent": {
+        "objective": "Check citations against claims in a draft",
+        "domain": "academic",
+        "task_type": "citation_check",
+        "deliverables": ["citation support assessment"],
+        "requirements": [
+          {"text": "Assess whether each citation supports its associated claim", "category": "verification", "priority": "mandatory", "provenance": "explicit", "source_location": "source_request.text"},
+          {"text": "Do not replace cited sources", "category": "exclusion", "priority": "mandatory", "provenance": "explicit", "source_location": "source_request.text"}
+        ],
+        "evidence_requirements": ["inspect source content, not only citation metadata"],
+        "acceptance_criteria": [],
+        "risk_profile": {"level": "moderate"}
+      },
+      "acceptable_clarifications": ["request the draft and source documents"],
+      "unsafe_assumptions": ["treat citation existence as proof of claim support"],
+      "acceptance_tests": ["keep citation existence distinct from support"],
+      "adjudication_notes": "Citation-trap case emphasizing evidence semantics."
+    },
+    {
+      "case_id": "UAT-0008",
+      "test_categories": ["control"],
+      "dataset_version": "0.1.0",
+      "domain": "software",
+      "task_type": "bug_fix",
+      "difficulty": "easy",
+      "user_prompt": "Fix the login bug without changing the public API, and add a regression test.",
+      "expected_intent": {
+        "objective": "Fix a login bug",
+        "domain": "software",
+        "task_type": "bug_fix",
+        "deliverables": ["bug fix", "regression test"],
+        "requirements": [
+          {"text": "Do not change the public API", "category": "constraint", "priority": "mandatory", "provenance": "explicit", "source_location": "source_request.text"},
+          {"text": "Add a regression test", "category": "testing", "priority": "mandatory", "provenance": "explicit", "source_location": "source_request.text"}
+        ],
+        "acceptance_criteria": [],
+        "risk_profile": {"level": "moderate"}
+      },
+      "acceptable_clarifications": ["ask for repository or reproduction steps if absent"],
+      "unsafe_assumptions": [],
+      "acceptance_tests": ["API remains compatible", "regression test is added"],
+      "adjudication_notes": "Tests constraint extraction and deliverable distinction."
+    },
+    {
+      "case_id": "UAT-0009",
+      "test_categories": ["missing_context"],
+      "dataset_version": "0.1.0",
+      "domain": "business",
+      "task_type": "executive_summary",
+      "difficulty": "easy",
+      "user_prompt": "Summarize this report for executives in five bullet points. Include the main risks.",
+      "expected_intent": {
+        "objective": "Summarize a report for executives",
+        "domain": "business",
+        "task_type": "executive_summary",
+        "deliverables": ["five-bullet summary"],
+        "requirements": [
+          {"text": "Use five bullet points", "category": "format", "priority": "mandatory", "provenance": "explicit", "source_location": "source_request.text"},
+          {"text": "Include the main risks", "category": "content", "priority": "mandatory", "provenance": "explicit", "source_location": "source_request.text"}
+        ],
+        "context": {"audience": "executives"},
+        "acceptance_criteria": [],
+        "risk_profile": {"level": "low"}
+      },
+      "acceptable_clarifications": ["request the report if missing"],
+      "unsafe_assumptions": ["invent risks not present in the report"],
+      "acceptance_tests": ["exactly five bullet points"],
+      "adjudication_notes": "Tests audience, format, and coverage requirements."
+    },
+    {
+      "case_id": "UAT-0010",
+      "test_categories": ["control"],
+      "dataset_version": "0.1.0",
+      "domain": "creative",
+      "task_type": "slogan_writing",
+      "difficulty": "easy",
+      "user_prompt": "Give me ten slogan options for a local bakery. Avoid puns.",
+      "expected_intent": {
+        "objective": "Generate slogans for a local bakery",
+        "domain": "creative",
+        "task_type": "slogan_writing",
+        "deliverables": ["ten slogan options"],
+        "requirements": [
+          {"text": "Provide ten slogan options", "category": "quantity", "priority": "mandatory", "provenance": "explicit", "source_location": "source_request.text"},
+          {"text": "Avoid puns", "category": "exclusion", "priority": "mandatory", "provenance": "explicit", "source_location": "source_request.text"}
+        ],
+        "acceptance_criteria": [],
+        "risk_profile": {"level": "low"}
+      },
+      "acceptable_clarifications": [],
+      "unsafe_assumptions": [],
+      "acceptance_tests": ["return exactly ten options", "avoid puns"],
+      "adjudication_notes": "Simple creative request with an explicit exclusion."
+    },
+    {
+      "case_id": "UAT-0011",
+      "test_categories": ["missing_context"],
+      "dataset_version": "0.1.0",
+      "domain": "software",
+      "task_type": "code_generation",
+      "difficulty": "moderate",
+      "user_prompt": "Write a Python function that parses ISO dates. It must accept only valid dates and include unit tests.",
+      "expected_intent": {
+        "objective": "Write a Python ISO date parser",
+        "domain": "software",
+        "task_type": "code_generation",
+        "deliverables": ["Python function", "unit tests"],
+        "requirements": [
+          {"text": "Parse ISO dates", "category": "functionality", "priority": "mandatory", "provenance": "explicit", "source_location": "source_request.text"},
+          {"text": "Reject invalid dates", "category": "validation", "priority": "mandatory", "provenance": "explicit", "source_location": "source_request.text"},
+          {"text": "Include unit tests", "category": "testing", "priority": "mandatory", "provenance": "explicit", "source_location": "source_request.text"}
+        ],
+        "acceptance_criteria": [],
+        "risk_profile": {"level": "moderate"}
+      },
+      "acceptable_clarifications": ["ask whether date-times are in scope"],
+      "unsafe_assumptions": ["silently accept ambiguous locale-specific formats"],
+      "acceptance_tests": ["invalid dates are rejected"],
+      "adjudication_notes": "Tests input validation and ambiguity."
+    },
+    {
+      "case_id": "UAT-0012",
+      "test_categories": ["vague_request", "missing_context"],
+      "dataset_version": "0.1.0",
+      "domain": "academic",
+      "task_type": "literature_review",
+      "difficulty": "moderate",
+      "user_prompt": "Create a literature review using peer-reviewed sources from 2020 onward and identify gaps.",
+      "expected_intent": {
+        "objective": "Create a literature review",
+        "domain": "academic",
+        "task_type": "literature_review",
+        "deliverables": ["literature review"],
+        "requirements": [
+          {"text": "Use peer-reviewed sources", "category": "evidence", "priority": "mandatory", "provenance": "explicit", "source_location": "source_request.text"},
+          {"text": "Use sources from 2020 onward", "category": "time_period", "priority": "mandatory", "provenance": "explicit", "source_location": "source_request.text"},
+          {"text": "Identify research gaps", "category": "analysis", "priority": "mandatory", "provenance": "explicit", "source_location": "source_request.text"}
+        ],
+        "ambiguities": ["subject or research question"],
+        "acceptance_criteria": [],
+        "risk_profile": {"level": "moderate"}
+      },
+      "acceptable_clarifications": ["ask for the review topic"],
+      "unsafe_assumptions": ["invent a subject area"],
+      "acceptance_tests": ["retain the 2020 lower bound"],
+      "adjudication_notes": "Tests date constraint, evidence type, and missing scope."
+    },
+    {
+      "case_id": "UAT-0013",
+      "test_categories": ["control"],
+      "dataset_version": "0.1.0",
+      "domain": "productivity",
+      "task_type": "translation",
+      "difficulty": "easy",
+      "user_prompt": "Translate this paragraph into French, preserving names and product codes exactly.",
+      "expected_intent": {
+        "objective": "Translate a paragraph into French",
+        "domain": "productivity",
+        "task_type": "translation",
+        "deliverables": ["translated paragraph"],
+        "requirements": [
+          {"text": "Translate into French", "category": "language", "priority": "mandatory", "provenance": "explicit", "source_location": "source_request.text"},
+          {"text": "Preserve names exactly", "category": "preservation", "priority": "mandatory", "provenance": "explicit", "source_location": "source_request.text"},
+          {"text": "Preserve product codes exactly", "category": "preservation", "priority": "mandatory", "provenance": "explicit", "source_location": "source_request.text"}
+        ],
+        "acceptance_criteria": [],
+        "risk_profile": {"level": "low"}
+      },
+      "acceptable_clarifications": [],
+      "unsafe_assumptions": [],
+      "acceptance_tests": ["names and codes are unchanged"],
+      "adjudication_notes": "Tests multiple preservation constraints."
+    },
+    {
+      "case_id": "UAT-0014",
+      "test_categories": ["control"],
+      "dataset_version": "0.1.0",
+      "domain": "business",
+      "task_type": "data_analysis",
+      "difficulty": "moderate",
+      "user_prompt": "Analyze quarterly sales, but exclude refunds and show the result by region.",
+      "expected_intent": {
+        "objective": "Analyze quarterly sales",
+        "domain": "business",
+        "task_type": "data_analysis",
+        "deliverables": ["regional sales analysis"],
+        "requirements": [
+          {"text": "Exclude refunds from the analysis", "category": "constraint", "priority": "mandatory", "provenance": "explicit", "source_location": "source_request.text"},
+          {"text": "Break down results by region", "category": "grouping", "priority": "mandatory", "provenance": "explicit", "source_location": "source_request.text"}
+        ],
+        "ambiguities": ["quarter definition if fiscal calendar is relevant"],
+        "acceptance_criteria": [],
+        "risk_profile": {"level": "moderate"}
+      },
+      "acceptable_clarifications": ["ask whether calendar or fiscal quarters are intended when material"],
+      "unsafe_assumptions": ["include refunds in net sales"],
+      "acceptance_tests": ["refunds excluded", "results grouped by region"],
+      "adjudication_notes": "Tests a data exclusion and grouping requirement."
+    },
+    {
+      "case_id": "UAT-0015",
+      "test_categories": ["control"],
+      "dataset_version": "0.1.0",
+      "domain": "creative",
+      "task_type": "image_brief",
+      "difficulty": "moderate",
+      "user_prompt": "Describe a square social graphic with a blue background and a white logo in the top-left corner.",
+      "expected_intent": {
+        "objective": "Describe a social media graphic",
+        "domain": "creative",
+        "task_type": "image_brief",
+        "deliverables": ["image specification"],
+        "requirements": [
+          {"text": "Use a square aspect ratio", "category": "format", "priority": "mandatory", "provenance": "explicit", "source_location": "source_request.text"},
+          {"text": "Use a blue background", "category": "visual", "priority": "mandatory", "provenance": "explicit", "source_location": "source_request.text"},
+          {"text": "Place a white logo in the top-left corner", "category": "layout", "priority": "mandatory", "provenance": "explicit", "source_location": "source_request.text"}
+        ],
+        "acceptance_criteria": [],
+        "risk_profile": {"level": "low"}
+      },
+      "acceptable_clarifications": ["request the logo asset if absent"],
+      "unsafe_assumptions": ["invent or alter the logo"],
+      "acceptance_tests": ["square canvas", "specified logo placement and color"],
+      "adjudication_notes": "Tests modality-related constraints without requiring image generation."
+    },
+    {
+      "case_id": "UAT-0016",
+      "test_categories": ["control"],
+      "dataset_version": "0.1.0",
+      "domain": "software",
+      "task_type": "documentation",
+      "difficulty": "easy",
+      "user_prompt": "Document the public functions in this module. Keep examples runnable and do not document private helpers.",
+      "expected_intent": {
+        "objective": "Document public functions in a module",
+        "domain": "software",
+        "task_type": "documentation",
+        "deliverables": ["API documentation"],
+        "requirements": [
+          {"text": "Document public functions", "category": "scope", "priority": "mandatory", "provenance": "explicit", "source_location": "source_request.text"},
+          {"text": "Keep examples runnable", "category": "quality", "priority": "mandatory", "provenance": "explicit", "source_location": "source_request.text"},
+          {"text": "Do not document private helpers", "category": "exclusion", "priority": "mandatory", "provenance": "explicit", "source_location": "source_request.text"}
+        ],
+        "acceptance_criteria": [],
+        "risk_profile": {"level": "low"}
+      },
+      "acceptable_clarifications": ["request the module if unavailable"],
+      "unsafe_assumptions": [],
+      "acceptance_tests": ["examples execute", "private helpers omitted"],
+      "adjudication_notes": "Tests scope, exclusions, and verifiable quality criteria."
+    },
+    {
+      "case_id": "UAT-0017",
+      "test_categories": ["missing_context"],
+      "dataset_version": "0.1.0",
+      "domain": "academic",
+      "task_type": "summarization",
+      "difficulty": "moderate",
+      "user_prompt": "Summarize the attached study in plain language. Separate the authors' findings from your interpretation.",
+      "expected_intent": {
+        "objective": "Summarize an attached study",
+        "domain": "academic",
+        "task_type": "summarization",
+        "deliverables": ["plain-language summary"],
+        "requirements": [
+          {"text": "Use plain language", "category": "style", "priority": "mandatory", "provenance": "explicit", "source_location": "source_request.text"},
+          {"text": "Separate author findings from interpretation", "category": "evidence", "priority": "mandatory", "provenance": "explicit", "source_location": "source_request.text"}
+        ],
+        "acceptance_criteria": [],
+        "risk_profile": {"level": "moderate"}
+      },
+      "acceptable_clarifications": ["request the attachment if missing"],
+      "unsafe_assumptions": ["attribute interpretation to study authors"],
+      "acceptance_tests": ["findings and interpretation are distinguishable"],
+      "adjudication_notes": "Tests faithful attribution and separation of fact from interpretation."
+    },
+    {
+      "case_id": "UAT-0018",
+      "test_categories": ["missing_context"],
+      "dataset_version": "0.1.0",
+      "domain": "productivity",
+      "task_type": "planning",
+      "difficulty": "moderate",
+      "user_prompt": "Plan a two-day workshop for 12 people. Keep each session under 45 minutes and include two breaks each day.",
+      "expected_intent": {
+        "objective": "Plan a workshop",
+        "domain": "productivity",
+        "task_type": "planning",
+        "deliverables": ["two-day workshop agenda"],
+        "requirements": [
+          {"text": "Plan for 12 people", "category": "audience", "priority": "mandatory", "provenance": "explicit", "source_location": "source_request.text"},
+          {"text": "Keep each session under 45 minutes", "category": "duration", "priority": "mandatory", "provenance": "explicit", "source_location": "source_request.text"},
+          {"text": "Include two breaks each day", "category": "schedule", "priority": "mandatory", "provenance": "explicit", "source_location": "source_request.text"}
+        ],
+        "acceptance_criteria": [],
+        "risk_profile": {"level": "low"}
+      },
+      "acceptable_clarifications": ["ask for workshop topic if absent"],
+      "unsafe_assumptions": ["invent an unprovided workshop topic"],
+      "acceptance_tests": ["both days contain two breaks", "no session reaches 45 minutes"],
+      "adjudication_notes": "Tests quantities, schedule, and missing subject."
+    },
+    {
+      "case_id": "UAT-0019",
+      "test_categories": ["control"],
+      "dataset_version": "0.1.0",
+      "domain": "business",
+      "task_type": "comparison",
+      "difficulty": "moderate",
+      "user_prompt": "Compare these plans by monthly price only. Recommend the cheapest one.",
+      "expected_intent": {
+        "objective": "Compare plans and recommend the cheapest",
+        "domain": "business",
+        "task_type": "comparison",
+        "deliverables": ["price comparison", "recommendation"],
+        "requirements": [
+          {"text": "Compare plans using monthly price only", "category": "scope", "priority": "mandatory", "provenance": "explicit", "source_location": "source_request.text"},
+          {"text": "Recommend the plan with the lowest monthly price", "category": "decision", "priority": "mandatory", "provenance": "explicit", "source_location": "source_request.text"}
+        ],
+        "exclusions": ["do not compare non-price features"],
+        "acceptance_criteria": [],
+        "risk_profile": {"level": "low"}
+      },
+      "acceptable_clarifications": ["ask for plan data if absent"],
+      "unsafe_assumptions": ["recommend based on unrequested features"],
+      "acceptance_tests": ["recommendation follows monthly price"],
+      "adjudication_notes": "Tests sole decision criterion and scope exclusion."
+    },
+    {
+      "case_id": "UAT-0020",
+      "test_categories": ["adversarial_phrasing"],
+      "dataset_version": "0.1.0",
+      "domain": "software",
+      "task_type": "test_authoring",
+      "difficulty": "moderate",
+      "user_prompt": "Add tests for this parser, including empty input, malformed input, and valid Unicode text. Do not change parser behavior.",
+      "expected_intent": {
+        "objective": "Add tests for a parser",
+        "domain": "software",
+        "task_type": "test_authoring",
+        "deliverables": ["parser tests"],
+        "requirements": [
+          {"text": "Test empty input", "category": "testing", "priority": "mandatory", "provenance": "explicit", "source_location": "source_request.text"},
+          {"text": "Test malformed input", "category": "testing", "priority": "mandatory", "provenance": "explicit", "source_location": "source_request.text"},
+          {"text": "Test valid Unicode text", "category": "testing", "priority": "mandatory", "provenance": "explicit", "source_location": "source_request.text"},
+          {"text": "Do not change parser behavior", "category": "constraint", "priority": "mandatory", "provenance": "explicit", "source_location": "source_request.text"}
+        ],
+        "acceptance_criteria": [],
+        "risk_profile": {"level": "moderate"}
+      },
+      "acceptable_clarifications": ["request parser and test framework if absent"],
+      "unsafe_assumptions": ["modify implementation to make tests pass"],
+      "acceptance_tests": ["cover all three input classes", "no behavior change"],
+      "adjudication_notes": "Tests adversarial boundary cases and a strict no-change constraint."
+    }
+  ]
+}
