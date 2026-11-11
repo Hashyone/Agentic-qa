@@ -1,0 +1,202 @@
+{
+  "pilot_id": "api-task-creation-feasibility-0.2",
+  "dataset_version": "0.2.0",
+  "oracle_version": "task-create-contract-v1",
+  "target_id": "local_task_api",
+  "provider": "deepseek",
+  "model": "deepseek-chat",
+  "condition_order": [
+    "treatment_c",
+    "baseline_a",
+    "baseline_b"
+  ],
+  "order_seed": 23,
+  "started_at": "2026-11-11T13:10:38.519260+00:00",
+  "conditions": {
+    "treatment_c": {
+      "elapsed_seconds": 7.070062437000161,
+      "provider_calls": [
+        {
+          "purpose": "intent_extraction",
+          "elapsed_seconds": 5.505912077998801,
+          "provider_requests": 1,
+          "input_tokens": 2316,
+          "output_tokens": 1379,
+          "total_tokens": 3695,
+          "token_usage_complete": true
+        },
+        {
+          "purpose": "generation",
+          "provider": "deepseek",
+          "model": "deepseek-chat",
+          "elapsed_seconds": 1.4195091149995278,
+          "input_tokens": 1137,
+          "output_tokens": 147,
+          "total_tokens": 1284,
+          "token_usage_complete": true
+        }
+      ],
+      "provider_request_count": 2,
+      "all_call_usage_complete": true,
+      "input_tokens": 3453,
+      "output_tokens": 1526,
+      "total_tokens": 4979,
+      "quality": {
+        "requirement_links_valid": true,
+        "requirement_link_errors": [],
+        "case_count": 2,
+        "passed_cases": 2,
+        "failed_cases": 0,
+        "all_passed": true,
+        "case_results": [
+          {
+            "case_id": "case_001",
+            "passed": true,
+            "expected_status_code": 201,
+            "expected_task_status": "received",
+            "expected_source_request": "Pilot task",
+            "expected_error_detail": null,
+            "actual_status_code": 201,
+            "actual_task_status": "received",
+            "actual_source_request": "Pilot task",
+            "actual_error_detail": null,
+            "failure_reasons": []
+          },
+          {
+            "case_id": "case_002",
+            "passed": true,
+            "expected_status_code": 422,
+            "expected_task_status": null,
+            "expected_source_request": null,
+            "expected_error_detail": "input.text must not be blank",
+            "actual_status_code": 422,
+            "actual_task_status": null,
+            "actual_source_request": null,
+            "actual_error_detail": "input.text must not be blank",
+            "failure_reasons": []
+          }
+        ]
+      },
+      "generation_assurance_status": "partially_verified",
+      "output": "{\"cases\":[{\"case_id\":\"case_001\",\"requirement_ids\":[\"REQ-005\"],\"scenario\":\"Create a task with the exact input text Pilot task\",\"operation\":\"create_task\",\"input_text\":\"Pilot task\",\"expected_status_code\":201,\"expected_task_status\":\"received\",\"expected_source_request\":\"Pilot task\",\"expected_error_detail\":null},{\"case_id\":\"case_002\",\"requirement_ids\":[\"REQ-006\"],\"scenario\":\"Create a task with input text consisting of three spaces\",\"operation\":\"create_task\",\"input_text\":\"   \",\"expected_status_code\":422,\"expected_task_status\":null,\"expected_source_request\":null,\"expected_error_detail\":\"input.text must not be blank\"}]}",
+      "error": null,
+      "agent_iterations": null,
+      "human_accepted": null,
+      "adjudicated": false
+    },
+    "baseline_a": {
+      "elapsed_seconds": 2.149815707000016,
+      "provider_calls": [
+        {
+          "purpose": "generation",
+          "elapsed_seconds": 2.149627144999613,
+          "provider_requests": 1,
+          "input_tokens": 142,
+          "output_tokens": 370,
+          "total_tokens": 512,
+          "token_usage_complete": true
+        }
+      ],
+      "provider_request_count": 1,
+      "all_call_usage_complete": true,
+      "input_tokens": 142,
+      "output_tokens": 370,
+      "total_tokens": 512,
+      "quality": null,
+      "generation_assurance_status": null,
+      "output": "{\n  \"cases\": [\n    {\n      \"case_id\": \"create_task_nonblank_returns_201_received\",\n      \"requirement_ids\": [\"nonblank_input_201\", \"task_status_received\"],\n      \"scenario\": \"Create a task with nonblank input and verify HTTP 201 and initial status received.\",\n      \"operation\": \"create_task\",\n      \"input_text\": \"Review the quarterly report\",\n      \"expected_status_code\": 201,\n      \"expected_task_status\": \"received\",\n      \"expected_source_request\": null,\n      \"expected_error_detail\": null\n    },\n    {\n      \"case_id\": \"retrieval_returns_exact_original_source_request\",\n      \"requirement_ids\": [\"retrieval_source_request_exact\"],\n      \"scenario\": \"Create a task with nonblank input and verify retrieval returns the exact original input as source_request.\",\n      \"operation\": \"create_task\",\n      \"input_text\": \"  Draft the release notes  \",\n      \"expected_status_code\": 201,\n      \"expected_task_status\": \"received\",\n      \"expected_source_request\": \"  Draft the release notes  \",\n      \"expected_error_detail\": null\n    },\n    {\n      \"case_id\": \"blank_input_returns_422_validation_error\",\n      \"requirement_ids\": [\"whitespace_only_422\", \"blank_error_detail\"],\n      \"scenario\": \"Create a task with whitespace-only input and verify HTTP 422 with blank-input validation detail.\",\n      \"operation\": \"create_task\",\n      \"input_text\": \"   \",\n      \"expected_status_code\": 422,\n      \"expected_task_status\": null,\n      \"expected_source_request\": null,\n      \"expected_error_detail\": \"input.text must not be blank\"\n    }\n  ]\n}",
+      "error": "ValidationError: 1 validation error for APITestCaseSuite\ncases.0\n  Value error, successful task creation needs expected task status and source text [type=value_error, input_value={'case_id': 'create_task_...ted_error_detail': None}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.14/v/value_error",
+      "agent_iterations": null,
+      "human_accepted": null,
+      "adjudicated": false
+    },
+    "baseline_b": {
+      "elapsed_seconds": 1.306917666001027,
+      "provider_calls": [
+        {
+          "purpose": "generation",
+          "elapsed_seconds": 1.27446113500082,
+          "provider_requests": 1,
+          "input_tokens": 202,
+          "output_tokens": 160,
+          "total_tokens": 362,
+          "token_usage_complete": true
+        }
+      ],
+      "provider_request_count": 1,
+      "all_call_usage_complete": true,
+      "input_tokens": 202,
+      "output_tokens": 160,
+      "total_tokens": 362,
+      "quality": {
+        "requirement_links_valid": true,
+        "requirement_link_errors": [],
+        "case_count": 2,
+        "passed_cases": 2,
+        "failed_cases": 0,
+        "all_passed": true,
+        "case_results": [
+          {
+            "case_id": "ORACLE-001-pilot-task",
+            "passed": true,
+            "expected_status_code": 201,
+            "expected_task_status": "received",
+            "expected_source_request": "Pilot task",
+            "expected_error_detail": null,
+            "actual_status_code": 201,
+            "actual_task_status": "received",
+            "actual_source_request": "Pilot task",
+            "actual_error_detail": null,
+            "failure_reasons": []
+          },
+          {
+            "case_id": "ORACLE-002-blank-input",
+            "passed": true,
+            "expected_status_code": 422,
+            "expected_task_status": null,
+            "expected_source_request": null,
+            "expected_error_detail": "input.text must not be blank",
+            "actual_status_code": 422,
+            "actual_task_status": null,
+            "actual_source_request": null,
+            "actual_error_detail": "input.text must not be blank",
+            "failure_reasons": []
+          }
+        ]
+      },
+      "generation_assurance_status": null,
+      "output": "{\"cases\":[{\"case_id\":\"ORACLE-001-pilot-task\",\"requirement_ids\":[\"ORACLE-001\"],\"scenario\":\"Create a task with a valid non-blank input text\",\"operation\":\"create_task\",\"input_text\":\"Pilot task\",\"expected_status_code\":201,\"expected_task_status\":\"received\",\"expected_source_request\":\"Pilot task\",\"expected_error_detail\":null},{\"case_id\":\"ORACLE-002-blank-input\",\"requirement_ids\":[\"ORACLE-002\"],\"scenario\":\"Create a task with input text consisting of three spaces\",\"operation\":\"create_task\",\"input_text\":\"   \",\"expected_status_code\":422,\"expected_task_status\":null,\"expected_source_request\":null,\"expected_error_detail\":\"input.text must not be blank\"}]}",
+      "error": null,
+      "agent_iterations": null,
+      "human_accepted": null,
+      "adjudicated": false
+    }
+  },
+  "exploratory_deltas": {
+    "baseline_a": {
+      "both_passed_independent_oracle": false,
+      "time_delta_seconds_baseline_minus_platform": null,
+      "time_delta_percent_of_baseline": null,
+      "token_delta_baseline_minus_platform": null,
+      "token_delta_percent_of_baseline": null,
+      "sample_count": 1,
+      "requires_human_adjudication": true
+    },
+    "baseline_b": {
+      "both_passed_independent_oracle": true,
+      "time_delta_seconds_baseline_minus_platform": -5.7631447709991335,
+      "time_delta_percent_of_baseline": -440.97229082789096,
+      "token_delta_baseline_minus_platform": -4617,
+      "token_delta_percent_of_baseline": -1275.414364640884,
+      "sample_count": 1,
+      "requires_human_adjudication": true
+    }
+  },
+  "limitations": [
+    "Single-task feasibility run; not an estimate of population-level savings.",
+    "Automated local API oracle used; human quality adjudication is still required.",
+    "No autonomous agent loop was run, so agent iterations and loop reduction are not measured.",
+    "User-active time and willingness to pay are not measured.",
+    "Token totals are valid only when usage is complete for every provider call."
+  ]
+}
